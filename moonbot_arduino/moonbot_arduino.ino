@@ -26,6 +26,8 @@ class NewHardware : public ArduinoHardware
   public: 
     NewHardware(): ArduinoHardware(&Serial, 115200) {}; 
 }; 
+
+//dsk
   
 ros::NodeHandle_<NewHardware>  nh; 
   
