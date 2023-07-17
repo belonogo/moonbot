@@ -1,0 +1,6 @@
+Одометрия встроенным пакетом ROS:
+https://automaticaddison.com/sensor-fusion-using-the-ros-robot-pose-ekf-package/
+
+Считывание тиков:
+https://automaticaddison.com/how-to-publish-wheel-odometry-information-over-ros/
+
