@@ -4,7 +4,8 @@
 #include <geometry_msgs/Vector3.h> 
 #include <std_msgs/UInt32.h>
 #include <std_msgs/String.h>  
-#include <TroykaIMU.h>  
+#include <TroykaIMU.h>
+#include <std_msgs/Int64.h>
 #define ROBOT_WIDTH 150  
   
 int pot;  
@@ -87,7 +88,7 @@ void motor2SetSpeed(int spd1 = 0) {
   }  
 }  
  
-void messageCb(const geometry_msgs::Twist& cmd_vel)   
+void messageCb(const geometry_msgs::Twist &cmd_vel)   
 {   
     long lasttim=millis();  
     double vel_x=cmd_vel.linear.x;  
@@ -99,7 +100,14 @@ void messageCb(const geometry_msgs::Twist& cmd_vel)
     motor1SetSpeed((int)left_vel);  
     motor2SetSpeed((int)right_vel); 
     data = String(left_vel) + "    " + String(right_vel); 
-} 
+}
+
+// функция-обработчик изменеий топика serv_infp
+void servInfoAdapter(const geometry_msgs::Int64 &servInfo)   
+{   
+    // берем значение из servInfo и подаем на сервопривод
+    функцияУправленияСерво(servInfo.data);
+}
  
 volatile uint32_t right_enc_cnt = 0; 
 volatile uint32_t left_enc_cnt = 0; 
@@ -112,9 +120,12 @@ void enc_right()
 void enc_left() 
 { 
   left_enc_cnt++; 
-} 
+}
  
-ros::Subscriber<geometry_msgs::Twist> sub("cmd_vel", &messageCb ); 
+ros::Subscriber<geometry_msgs::Twist> sub("cmd_vel", &messageCb);
+// создаем подписчика на топик serv_info. !!!! топик появявляется только после запуска ноды питон скрипта
+// обработчиком изменения данных в топике будет функция servInfoAdapter
+ros::Subscriber<geometry_msgs::Int64> servSub("serv_info", &servInfoAdapter)
  
 void setup() {  
   pinMode(BIN1, OUTPUT);  
@@ -132,7 +143,8 @@ void setup() {
   gyroscope.begin(); 
   
   nh.initNode();
-  nh.subscribe(sub);  
+  nh.subscribe(sub); 
+  nh.subscribe(servSub); // подписываем на топик serv_info
   nh.advertise(chatter); //Publishers
   nh.advertise(imuDataPublisher); 
   nh.advertise(leftEncoderPublisher);
