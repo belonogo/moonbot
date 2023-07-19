@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# этот скрипт запускается также как и скрипт одометрии через python3 имя_файла.py
+
 import rospy
 # указываем тип сообщений топика
 from std_msgs.msg import Int64
@@ -11,5 +13,4 @@ rospy.init_node('serv_info_publisher')
 r = rospy.Rate(10) # 10hz
 
 while not rospy.is_shutdown():
-    pub.publish("Hello World")
     r.sleep()
