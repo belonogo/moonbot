@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import String
+# указываем тип сообщений топика
+from std_msgs.msg import Int64
 
-pub = rospy.Publisher('hello', String, queue_size=10)
-rospy.init_node('hello_topic_publisher')
+# указываем название топика (в нашем случае serv_info), тип данных который импортировали, длину очереди
+pub = rospy.Publisher('serv_info', Int64, queue_size=10)
+# чтобы топик работал необходимо создать ноду
+rospy.init_node('serv_info_publisher')
 r = rospy.Rate(10) # 10hz
 
 while not rospy.is_shutdown():
