@@ -103,7 +103,7 @@ void messageCb(const geometry_msgs::Twist &cmd_vel)
 }
 
 // функция-обработчик изменеий топика serv_infp
-void servInfoAdapter(const geometry_msgs::Int64 &servInfo)   
+void servInfoAdapter(const std_msgs::Int64 &servInfo)   
 {   
     // берем значение из servInfo и подаем на сервопривод
     функцияУправленияСерво(servInfo.data);
