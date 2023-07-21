@@ -1,0 +1,45 @@
+ssh pi@turtlebro01.local
+
+export ROS_HOSTNAME=192.168.137.48 //PC
+export ROS_MASTER_URI=http://192.168.137.22:11311 //raspberry
+rviz
+
+connect with cam or wasd
+192.168.110.213:8080
+
+sudo shutdown -h now
+
+rostopic pub -r 10 /cmd_vel geometry_msgs/Twist  '{linear:  {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0,y: 0.0,z: 0.0}}'
+
+rostopic pub -r 10 /serv_info std_msgs/Int64 '2'
+
+cd /home/sirius/snap/arduino/85/Arduino
+
+ls /dev/serial/by-id/
+
+python3 ~/catkin_ws/src/turtlebro/src
+
+sudo chmod +x odom_publisher_v1.py //сделать исполнемым файл
+
+~/catkin_ws/src/turtlebro/src/moonbot/ros/ //путь к репозиторию на распберри (odom_publisher_v1.py)
+
+sudo rm имя файла //удаление файла
+sudo rm -r имя каталога //удаление каталога
+
+python3 odom_publisher_v1.py //запуск ноды
+
+roslaunch turtlebro_navigation turtlebro_gmapping.launch open_rviz:=0 //на распберри запускаем
+
+1. python3 ~/catkin_ws/src/turtlebro/src/moonbot/ros/odom_publisher_v1.py
+2. roslaunch turtlebro_navigation turtlebro_gmapping.launch open_rviz:=0
+3. export ROS_HOSTNAME=192.168.137.22 //PC
+4. export ROS_MASTER_URI=http://192.168.137.48:11311 //Raspberry
+5. rviz
+
+поменяли дерево urdf
+
+ls /dev/serial/by-id/
+
+192.168.137.48:8080/
+
+rosrun gmapping slam_gmapping scan:=base_scan
