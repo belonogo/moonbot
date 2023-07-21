@@ -130,16 +130,16 @@ void enc_left()
 volatile uint32_t water_count = 0;
 
 void water_make() {
-  water_count = analog.read(!!!!!!);
+  water_count = analogRead(A8);
 }
  
 ros::Subscriber<geometry_msgs::Twist> sub("cmd_vel", &messageCb);
 // создаем подписчика на топик serv_info. !!!! топик появляется только после запуска ноды питон скрипта
 // обработчиком изменения данных в топике будет функция servInfoAdapter
-ros::Subscriber<geometry_msgs::Int64> servSub("serv_info", &servInfoAdapter)
+ros::Subscriber<std_msgs::Int64> servSub("serv_info", &servInfoAdapter);
 
 void setup() {  
-  myservo.attach() //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  myservo.attach(52);
 
   pinMode(BIN1, OUTPUT);  
   pinMode(AIN1, OUTPUT);  
