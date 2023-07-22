@@ -11,7 +11,9 @@ sudo shutdown -h now
 
 rostopic pub -r 10 /cmd_vel geometry_msgs/Twist  '{linear:  {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0,y: 0.0,z: 0.0}}'
 
-rostopic pub -r 10 /serv_info std_msgs/Int64 '2'
+rostopic pub /serv_info std_msgs/Int64 40
+
+rostopic pub /bur_info std_msgs/Int64 50
 
 cd /home/sirius/snap/arduino/85/Arduino
 
