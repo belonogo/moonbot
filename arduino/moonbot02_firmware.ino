@@ -121,20 +121,20 @@ void servInfoAdapter(const std_msgs::Int64 &servInfo)
 }
 
 void burInfoAdapter(const std_msgs::Int64 &burInfo) {
-  int spd2 = burInfo.data;
-  bool dir2 = 0; 
-  if (spd2 < 0) { 
-    dir2 = 1; 
-    spd2 = 255-spd2; 
-  }
-  if (dir2 == 1) { 
-    digitalWrite(MOTDIR, 0); 
-    analogWrite(MOTPWM, spd2); 
-  } 
-  else { 
-    digitalWrite(MOTDIR, 1); 
-    analogWrite(MOTPWM, 255 - spd2); 
-  }
+    int spd2 = burInfo.data;
+    bool dir2 = 0; 
+    if (spd2 < 0) { 
+      dir2 = 1; 
+      spd2 = 255-spd2; 
+    }
+    if (dir2 == 1) { 
+      digitalWrite(MOTDIR, 0); 
+      analogWrite(MOTPWM, spd2); 
+    } 
+    else { 
+      digitalWrite(MOTDIR, 1); 
+      analogWrite(MOTPWM, 255 - spd2); 
+    }
 }
  
 volatile uint32_t right_enc_cnt = 0; 
@@ -148,12 +148,6 @@ void enc_right()
 void enc_left() 
 { 
   left_enc_cnt++; 
-}
-
-volatile uint32_t water_count = 0;
-
-void water_make() {
-  water_count = analogRead(A8);
 }
  
 ros::Subscriber<geometry_msgs::Twist> sub("cmd_vel", &messageCb);
@@ -204,7 +198,7 @@ void loop() {
   left_encoder.data = left_enc_cnt;
   right_encoder.data = right_enc_cnt;
 
-  water_data.data = water_count;
+  water_data.data = analogRead(A8);
   
   chatter.publish(&str_msg); 
   imuDataPublisher.publish(&imuData); 
