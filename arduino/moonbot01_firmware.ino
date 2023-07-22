@@ -129,12 +129,6 @@ void enc_left()
 { 
   left_enc_cnt++; 
 }
-
-volatile uint32_t water_count = 0;
-
-void water_make() {
-  water_count = analogRead(A8);
-}
  
 ros::Subscriber<geometry_msgs::Twist> sub("cmd_vel", &messageCb);
 // создаем подписчика на топик serv_info. !!!! топик появляется только после запуска ноды питон скрипта
@@ -180,7 +174,7 @@ void loop() {
   left_encoder.data = left_enc_cnt;
   right_encoder.data = right_enc_cnt;
 
-  water_data.data = water_count;
+  water_data.data = analogRead(A8);
   
   chatter.publish(&str_msg); 
   imuDataPublisher.publish(&imuData); 
