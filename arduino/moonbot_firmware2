@@ -54,7 +54,8 @@ void motor1SetSpeed(int spd = 0) {
   if (spd < 0) {  
     dir = 1;  
     spd = 255-spd;  
-  } else {  
+  } 
+  else {  
     dir = 0;  
   }  
   digitalWrite(A0, HIGH);  
@@ -63,10 +64,10 @@ void motor1SetSpeed(int spd = 0) {
     digitalWrite(AIN2, 0);  
     spd = spd;  
     analogWrite(PWM1, spd);  
-  } else {  
+  } 
+  else {  
     digitalWrite(AIN1, 0);  
-    digitalWrite(AIN2, 1);  
-    spd = spd;  
+    digitalWrite(AIN2, 1);
     analogWrite(PWM1, spd);  
   }  
 }  
@@ -76,7 +77,8 @@ void motor2SetSpeed(int spd1 = 0) {
   if (spd1 < 0) {  
     dir1 = 0;  
     spd1 = 255-spd1;  
-  } else {  
+  } 
+  else {  
     dir1 = 1;  
   }  
   digitalWrite(A1, HIGH);  
@@ -84,7 +86,8 @@ void motor2SetSpeed(int spd1 = 0) {
     digitalWrite(BIN1, 1);  
     digitalWrite(BIN2, 0);  
     analogWrite(PWM2, spd1);  
-  } else {  
+  } 
+  else {  
     digitalWrite(BIN1, 0);  
     digitalWrite(BIN2, 1);  
     analogWrite(PWM2, spd1);  
@@ -158,7 +161,7 @@ void setup() {
   nh.initNode();
   nh.subscribe(sub); 
   nh.subscribe(servSub); // подписываем на топик serv_info
-  nh.advertise(chatter); //Publishers
+  nh.advertise(chatter);
   nh.advertise(imuDataPublisher); 
   nh.advertise(leftEncoderPublisher);
   nh.advertise(rightEncoderPublisher);
@@ -183,9 +186,7 @@ void loop() {
   imuDataPublisher.publish(&imuData); 
   leftEncoderPublisher.publish(&left_encoder);
   rightEncoderPublisher.publish(&right_encoder);
-  if (water_count > 300) {
-    water.publish(&water_data);
-  }
+  water.publish(&water_data);
 
   nh.spinOnce();  
   delay(1);   
